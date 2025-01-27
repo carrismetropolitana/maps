@@ -70,26 +70,3 @@ services:
   # # # # # # # # # # # # # # # # # # # # #
   # # # # # # # # # # # # # # # # # # # # #
 
-  updatebot:
-    image: alpine:latest
-    container_name: updatebot
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./docker-compose.yml:/docker-compose.yml
-    command: >
-      sh -c "apk update && apk add --no-cache docker-cli && while true; do
-        if [ $(date +%H:%M) = '02:00' ]; then
-        if docker info > /dev/null 2>&1; then
-          echo 'Updating Data';
-          docker exec planetiler rm -rf /output/* || true;
-          docker restart planetiler;
-        else
-          echo 'Error updating map data;
-        fi;
-        sleep 60;
-      fi;
-      sleep 1;
-      done"
-
-  # # # # # # # # # # # # # # # # # # # # #
-  # # # # # # # # # # # # # # # # # # # # #
