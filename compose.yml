@@ -24,15 +24,21 @@ services:
 
   nginx:
     image: nginx:alpine-slim
-    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 30s
+      resources:
+        limits:
+          memory: 1gb
     logging:
       options:
-        max-size: "1m"
-        max-file: "1"
+        max-size: '1m'
+        max-file: '1'
     volumes:
-      - ./nginx:/etc/nginx/conf.d
-      - ./letsencrypt:/etc/letsencrypt
-      - certbotdata:/var/www/certbot
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./letsencrypt:/etc/letsencrypt:ro
+      - certbotdata:/var/www/certbot:ro
     ports:
       - 80:80
       - 443:443
@@ -43,7 +49,17 @@ services:
 
   certbot:
     image: certbot/certbot
-    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 30s
+      resources:
+        limits:
+          memory: 100mb
+    logging:
+      options:
+        max-size: '1m'
+        max-file: '1'
     volumes:
       - ./letsencrypt:/etc/letsencrypt
       - certbotdata:/var/www/certbot
@@ -54,7 +70,17 @@ services:
 
   planetiler:
     image: ghcr.io/onthegomap/planetiler:latest
-    container_name: planetiler
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 30s
+      resources:
+        limits:
+          memory: 2gb
+    logging:
+      options:
+        max-size: '1m'
+        max-file: '1'
     volumes:
       - "./tileserver:/output"
     command: --force --download --osm_url=https://download.geofabrik.de/europe/portugal-latest.osm.pbf --fetch-wikidata --refresh-sources --free_osm_after_read --output=/output/output.mbtiles
@@ -64,6 +90,16 @@ services:
 
   tileserver:
     image: maptiler/tileserver-gl
-    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 30s
+      resources:
+        limits:
+          memory: 2gb
+    logging:
+      options:
+        max-size: '1m'
+        max-file: '1'
     volumes:
       - "./tileserver:/data"
