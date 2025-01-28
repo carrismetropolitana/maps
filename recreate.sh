@@ -12,6 +12,24 @@ cat <<'EOF' | sudo tee $SCRIPT_PATH > /dev/null
 #!/bin/sh
 
 while true; do
+	echo "Changing directory to '/opt/app'..."
+	cd /opt/app
+	# Check if "next.mbtiles" exists
+	if [ -f "./tileserver/next.mbtiles" ]; then
+		# Check if "current.mbtiles" exists
+		if [ -f "./tileserver/current.mbtiles" ]; then
+			# Remove "previous.mbtiles" if it exists
+			if [ -f "./tileserver/previous.mbtiles" ]; then
+				echo "Removing 'previous.mbtiles'..."
+				rm ./tileserver/previous.mbtiles
+			fi
+			echo "Renaming 'current.mbtiles' to 'previous.mbtiles'..."
+			mv ./tileserver/current.mbtiles ./tileserver/previous.mbtiles
+		fi
+		echo "Renaming 'next.mbtiles' to 'current.mbtiles'..."
+		mv ./tileserver/next.mbtiles ./tileserver/current.mbtiles
+	fi
+	echo "Updated files."
 	echo "Recreating planetiler...";
 	docker compose -f /opt/app/compose.yml up -d --build --force-recreate --remove-orphans --pull=always planetiler
 	echo "Done! Planetiler recreated.";

@@ -17,23 +17,6 @@
                     47.43468
                 ]
             }
-        },
-        "yellow": {
-            "style": "yellow/style.json",
-            "tilejson": {
-                "type": "overlay",
-                "bounds": [
-                    8.44806,
-                    47.32023,
-                    8.62537,
-                    47.43468
-                ]
-            }
-        }
-    },
-    "data": {
-        "portugal-vector": {
-            "mbtiles": "output.mbtiles"
         }
     }
 }

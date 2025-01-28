@@ -83,7 +83,7 @@ services:
         max-file: '1'
     volumes:
       - "./tileserver:/output"
-    command: --force --download --osm_url=https://download.geofabrik.de/europe/portugal-latest.osm.pbf --fetch-wikidata --refresh-sources --free_osm_after_read --output=/output/output.mbtiles
+    command: --force --download --osm_url=https://download.geofabrik.de/europe/portugal-latest.osm.pbf --fetch-wikidata --refresh-sources --free_osm_after_read --output=/output/next.mbtiles
 
   # # # # # # # # # # # # # # # # # # # # #
   # # # # # # # # # # # # # # # # # # # # #
