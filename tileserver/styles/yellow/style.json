@@ -3,13 +3,13 @@
     "id": "carrismetropolitana-yellow",
     "name": "Carris Metropolitana Yellow",
     "metadata": {
-        "maputnik:license": "https://github.com/carrismetropolitana/mapas/LICENSE.md",
+        "maputnik:license": "https://github.com/carrismetropolitana/maps/LICENSE.md",
         "maputnik:renderer": "mbgljs",
         "openmaptiles:version": "3.x"
     },
     "sources": {
         "openmaptiles": {
-            "url": "mbtiles://output.mbtiles",
+            "url": "mbtiles://current.mbtiles",
             "type": "vector"
         }
     },
