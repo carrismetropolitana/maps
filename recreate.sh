@@ -33,7 +33,7 @@ while true; do
 	echo "Recreating planetiler...";
 	docker compose -f /opt/app/compose.yml up -d --build --force-recreate --remove-orphans --pull=always planetiler
 	echo "Done! Planetiler recreated.";
-	sleep 21600;  # 6 hours
+	sleep 86400; # Sleep for 24 hours
 done;
 EOF
 
