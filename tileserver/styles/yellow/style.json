@@ -7,12 +7,12 @@
         "maputnik:renderer": "mbgljs",
         "openmaptiles:version": "3.x"
     },
-    "sources": {
-        "openmaptiles": {
-            "url": "mbtiles://current.mbtiles",
-            "type": "vector"
-        }
-    },
+	 "sources": {
+		"openmaptiles": {
+			"type": "vector",
+			"url": "mbtiles://{openmaptiles}"
+		}
+	},
     "glyphs": "{fontstack}/{range}.pbf",
     "sprite": "https://maputnik.github.io/osm-liberty/sprites/osm-liberty",
     "layers": [
