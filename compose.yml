@@ -77,14 +77,25 @@ services:
         delay: 30s
       resources:
         limits:
-          memory: 4gb
+          memory: 16gb
     logging:
       options:
         max-size: '1m'
         max-file: '1'
     volumes:
       - "./tileserver:/output"
-    command: --force --download --osm_url=https://download.geofabrik.de/europe/portugal-latest.osm.pbf --fetch-wikidata --refresh-sources --free_osm_after_read --output=/output/next.mbtiles
+    environment:
+      JAVA_TOOL_OPTIONS: "-Xms6g -Xmx14g"
+    command: >
+      --force
+      --download
+      --osm_url=https://download.geofabrik.de/europe-latest.osm.pbf
+      --fetch-wikidata=false
+      --use_wikidata=false
+      --refresh-sources
+      --free_osm_after_read
+      --threads=9
+      --output=/output/next.mbtiles
 
   # # # # # # # # # # # # # # # # # # # # #
   # # # # # # # # # # # # # # # # # # # # #
